@@ -8,7 +8,6 @@ export const localStorageSlice = createSlice({
   reducers: {
     addItem: (state, action: PayloadAction<string>) => {
       state.items.push(action.payload)
-      localStorage.setItem('images', JSON.stringify(state.items))
     }
   }
 })

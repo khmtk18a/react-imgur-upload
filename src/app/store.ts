@@ -16,6 +16,10 @@ const mapStateToProps = (state: RootState) => {
   }
 }
 
+store.subscribe(() => {
+  localStorage.setItem('images', JSON.stringify(store.getState().localStorage.items))
+})
+
 export type LocalStorageProps = ConnectedProps<typeof connector>
 export const AppDispatch = store.dispatch
 export const connector = connect(mapStateToProps)
