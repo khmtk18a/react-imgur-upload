@@ -3,15 +3,15 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 export const localStorageSlice = createSlice({
   name: 'localStorage',
   initialState: {
-    items: Object.values(localStorage) as string[]
+    items: JSON.parse(localStorage.getItem('images') || '[]') as string[]
   },
   reducers: {
-    push: (state, action: PayloadAction<string>) => {
+    addItem: (state, action: PayloadAction<string>) => {
       state.items.push(action.payload)
-      localStorage.setItem(btoa(new Date().getTime().toString()), action.payload)
+      localStorage.setItem('images', JSON.stringify(state.items))
     }
   }
 })
 
-export const { push } = localStorageSlice.actions
+export const { addItem } = localStorageSlice.actions
 export default localStorageSlice.reducer

@@ -16,6 +16,7 @@ const mapStateToProps = (state: RootState) => {
   }
 }
 
-export const connector = connect(mapStateToProps)
 export type LocalStorageProps = ConnectedProps<typeof connector>
+export const AppDispatch = store.dispatch
+export const connector = connect(mapStateToProps)
 export default store

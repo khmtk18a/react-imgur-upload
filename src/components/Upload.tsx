@@ -3,9 +3,9 @@ import type { UploadFile, UploadProps } from 'antd';
 import { message, Upload } from 'antd';
 import { RcFile } from 'antd/es/upload';
 import axios, { AxiosError } from 'axios';
-import { useState } from 'react';
-import { push } from '../features/localStorageSlice';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { addItem } from '../features/localStorageSlice';
+import { AppDispatch } from '../app/store';
 
 const { Dragger } = Upload;
 
@@ -17,8 +17,7 @@ const getBase64 = (file: RcFile): Promise<string> =>
     reader.onerror = (error) => reject(error);
   });
 
-const UploadForm = () => {
-  const dispatch = useDispatch()
+const UploadForm: React.FC = () => {
   const [fileList, setFileList] = useState<UploadFile[]>([])
 
   const draggerProps: UploadProps = {
@@ -47,7 +46,7 @@ const UploadForm = () => {
           image: base64Content
         }, {
           onUploadProgress({ total, loaded }) {
-            onProgress?.({ percent: Math.round((loaded / (total ?? 1)) * 100) })
+            onProgress?.({ percent: Math.round((loaded / (total ?? loaded)) * 100) })
           },
           headers: {
             Accept: 'application/json',
@@ -57,7 +56,7 @@ const UploadForm = () => {
 
         const json = result.data as ImgurResponse
 
-        dispatch(push(json.data.link))
+        AppDispatch(addItem(json.data.link))
 
         onSuccess?.(result.data, result.request)
         message.success('Upload successfully')
@@ -72,7 +71,7 @@ const UploadForm = () => {
   };
 
   return (
-    <Dragger {...draggerProps} style={{ width: '80%' }}>
+    <Dragger {...draggerProps} style={{ width: '80%', margin: 'auto' }}>
       <p className="ant-upload-drag-icon">
         <InboxOutlined />
       </p>

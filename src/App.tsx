@@ -13,13 +13,11 @@ const App = connector((props: LocalStorageProps) => {
         <Card>
           <UploadForm></UploadForm>
         </Card>
-        <Card>
-          <Image.PreviewGroup>
-            {items.map((value, index) =>
-              <Image src={value} key={index} width='50px'></Image>
-            )}
-          </Image.PreviewGroup>
-        </Card>
+        <Image.PreviewGroup>
+          {items.map((value, index) =>
+            <Image src={value} key={index} width={200}></Image>
+          )}
+        </Image.PreviewGroup>
       </Content>
       <Footer style={{ textAlign: 'center' }}>©2023 Created by KHMT K18A</Footer>
     </Layout>
