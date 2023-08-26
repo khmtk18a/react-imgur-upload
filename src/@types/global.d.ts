@@ -1,10 +1,6 @@
 export { };
 
 declare global {
-  interface ItemsStateProp {
-    items: string[]
-  }
-
   /**
    * @see https://app.quicktype.io/?l=ts
    */
